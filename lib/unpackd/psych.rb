@@ -21,10 +21,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-gem 'psych', '2.0.0'
+gem 'psych'
 require 'psych'
 
-if defined?(Psych::VERSION) && Psych::VERSION == '2.0.0'
+if Gem::Version.new(Psych::VERSION) >= Gem::Version.new('2.0.0')
   # `Psych` bugs:
   #
   # 1) `Psych` has a bug where it stores an anchor to the YAML for an object,
