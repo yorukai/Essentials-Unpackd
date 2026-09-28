@@ -24,7 +24,6 @@
 require 'fileutils'
 require 'zlib'
 require 'pp'
-require 'formatador'
 
 require 'unpackd/psych'
 require 'unpackd/rgss/loader_code'
@@ -45,12 +44,30 @@ module RGSS
   YML_EXT = ".yaml"
   BK_EXT = ".backup"
 
+  COLORS = {
+    "black"   => 30,
+    "red"     => 31,
+    "green"   => 32,
+    "yellow"  => 33,
+    "blue"    => 34,
+    "magenta" => 35,
+    "cyan"    => 36,
+    "white"   => 37
+  }.freeze
+
   def self.change_ext(file, new_ext)
     File.basename(file, '.*') << new_ext
   end
 
   def self.echo(color="white", line)
-    $formatador.display_line("[#{color}]#{line}[/]") unless $SILENT
+    return if $SILENT
+
+    code = COLORS[color]
+    if code && $stdout.tty?
+      puts "\e[#{code}m#{line}\e[0m"
+    else
+      puts line
+    end
   end
 
   def self.inflate(str)

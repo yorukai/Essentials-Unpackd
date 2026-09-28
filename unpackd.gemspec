@@ -30,8 +30,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "optimist"
   spec.add_dependency "scanf"
-  spec.add_dependency "psych", "2.0.0"
-  spec.add_dependency "formatador"
+  spec.add_dependency "psych"
   spec.add_dependency "zlib"
   spec.add_dependency "fileutils"
 end

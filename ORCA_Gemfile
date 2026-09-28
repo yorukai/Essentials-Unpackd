@@ -8,7 +8,6 @@ gem 'ocra'
 
 gem "optimist"
 gem "scanf"
-gem "psych", "2.0.0"
-gem "formatador"
+gem "psych"
 gem "zlib"
 gem "fileutils"
