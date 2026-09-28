@@ -63,10 +63,10 @@ module RGSS
     return if $SILENT
 
     code = COLORS[color]
-    if code && $stdout.tty?
-      puts "\e[#{code}m#{line}\e[0m"
+    if code && ($stdout.tty? || ENV['GITHUB_ACTIONS'] == 'true')
+      puts "  \e[#{code}m#{line}\e[0m"
     else
-      puts line
+      puts "  #{line}"
     end
   end
 
@@ -102,7 +102,6 @@ module RGSS
   end
 
   def self.load_yaml_file(file)
-    formatador = Formatador.new
     obj = nil
     File.open(file, 'rb') { |f| obj = Psych.load(f) }
     max = 0
@@ -120,19 +119,13 @@ module RGSS
 
       if seen.key?(id)
         echo("red", "#{file}: Duplicate ID #{id}")
-        formatador.indent do
-          formatador.indent do
-            elem.pretty_inspect.split(/\n/).each do |line|
-              echo("red", "#{line}")
-            end
-          end
-          $formatador.display_line
-          echo("red", "Last seen at:\n")
-          formatador.indent do
-            elem.pretty_inspect.split(/\n/).each do |line|
-              echo("red", "#{line}")
-            end
-          end
+        elem.pretty_inspect.split(/\n/).each do |line|
+          echo("red", "#{line}")
+        end
+        puts "  "
+        echo("red", "Last seen at:\n")
+        elem.pretty_inspect.split(/\n/).each do |line|
+          echo("red", "#{line}")
         end
         exit 1
       end
@@ -227,7 +220,6 @@ module RGSS
   end
 
   def self.pack_scripts(dirs, src, dest, options)
-    formatador = Formatador.new
     src_file   = File.join(dirs[:yaml], src)
     dest_file  = File.join(dirs[:data], dest)
     fail "Missing #{src}" unless File.exist?(src_file)
@@ -445,7 +437,6 @@ module RGSS
   end
 
   def self.serialize(operation, directory, files, force)
-    $formatador = Formatador.new
     self.setup_classes
 
     base = File.realpath(directory)
