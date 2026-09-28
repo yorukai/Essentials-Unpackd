@@ -3,15 +3,27 @@
 <div align="center">
     <h1> Essentials Unpack'd </h1>
     <p><i><code>unpackd</code> is a tool for the Pokémon Essentials, to <b>extract</b> data binaries (<code>.rxdata</code>) to readable <code>.rb</code> and <code>.yaml</code> files and to <b>combine</b> them back, Thus making your game to be version-controlled and to be collaborated on.</i></p><br/>
-    <img src="https://img.shields.io/badge/Made%20with-Ruby-DE3F24?style=for-the-badge&logo=ruby" alt="Made with Ruby"> <a href="https://essentialsdocs.fandom.com/"><img src="https://img.shields.io/badge/Essentials-v20.1-ffcb05?style=for-the-badge&labelColor=3c5aa6&logo=pokemon" alt="Essentials v20.1"></a> <a href="https://github.com/ra101/Essentials-Unpackd/releases/latest/download/unpackd.exe"><img src="https://img.shields.io/badge/Download-v3.0.0-grey?style=for-the-badge&logo=windows&labelColor=639" alt="download"></a> <a href="https://www.buymeacoffee.com/ra101"><img src="https://img.shields.io/badge/sponser-💝-ffdd99?style=for-the-badge&logo=buymeacoffee&logoColor=white&labelColor=dd6633" alt="download"></a>
+    <img src="https://img.shields.io/badge/Made%20with-Ruby-DE3F24?style=for-the-badge&logo=ruby" alt="Made with Ruby"> <a href="https://essentialsdocs.fandom.com/"><img src="https://img.shields.io/badge/Essentials-v20.1-ffcb05?style=for-the-badge&labelColor=3c5aa6&logo=pokemon" alt="Essentials v20.1"></a> <a href="https://aur.archlinux.org/packages/essentials-unpackd-git"><img src="https://img.shields.io/badge/AUR-essentials--unpackd--git-1793d1?style=for-the-badge&logo=archlinux&labelColor=333" alt="AUR package"></a> <a href="https://www.buymeacoffee.com/ra101"><img src="https://img.shields.io/badge/sponser-💝-ffdd99?style=for-the-badge&logo=buymeacoffee&logoColor=white&labelColor=dd6633" alt="download"></a>
 </div><br/>
+
+<br/>
+
+## Installation (Arch Linux / AUR)
+
+This fork is packaged for Arch Linux (and derivatives) as [`essentials-unpackd-git`](https://aur.archlinux.org/packages/essentials-unpackd-git), installing the `essentials-unpackd` binary.
+
+```bash
+$ yay -S essentials-unpackd-git
+# or, using paru
+$ paru -S essentials-unpackd-git
+```
 
 <br/>
 
 ## Usage
 
 ```bash
-$ unpackd.exe --help
+$ essentials-unpackd --help
 Essentials Unpack\'d v3.0.0
 
 `unpackd` is a tool \for Pokémon Essentials, to extract data binaries (.rxdata)
@@ -19,7 +31,7 @@ Essentials Unpack\'d v3.0.0
   your game to be version-controlled and to be collaborated on.
 
 Usage:
-        unpackd.exe [options] {--extract|--combine|-b|-r}
+        essentials-unpackd [options] {--extract|--combine|-b|-r}
 
 Commands:
   -e, --extract        Extract given binaries(.rxdata) into individual .yaml/.rb
@@ -45,18 +57,18 @@ Options:
 
 <br/>
 
-- To **Extract** `Scripts.rxdata` and `Tilesets.rxdata` of a game in *"D:\\Examples\\MyEssentialsGame"*:
+- To **Extract** `Scripts.rxdata` and `Tilesets.rxdata` of a game in *"/home/user/Examples/MyEssentialsGame"*:
 
 > ```bash
->$ unpackd.exe --extract --project "D:\Examples\MyEssentialsGame" --files scripts tilesets
+>$ essentials-unpackd --extract --project "/home/user/Examples/MyEssentialsGame" --files scripts tilesets
 > ```
 > 
-> This will create 3 Folders, `Backup`, `Scripts`, and `YAML` in the *"D:\\Examples\\MyEssentialsGame<b>\\Data</b>"* folder.
+> This will create 3 Folders, `Backup`, `Scripts`, and `YAML` in the *"/home/user/Examples/MyEssentialsGame<b>/Data</b>"* folder.
 >
-> - Firstly, Backup files will be created in `Data\Backup` (`*.rxdata.backup` files)
->- `Scripts.rxdata`  consists of many ruby scripts and these now will be extracted to individual `.rb` files placed in grouped folders within the `Data\Scripts` folder.
->  - `Scripts.rxdata` will be replaced with a loader file, this file can read the individual `.rb` files in the `Data\Scripts` Folder, Therefore making Game.exe still playable! *This would not work, if the game is encrypted !*
->- `Tilesets.rxdata` will be extracted to a readable `Tilesets.yaml` file within  `Data\YAML` folder.
+> - Firstly, Backup files will be created in `Data/Backup` (`*.rxdata.backup` files)
+>- `Scripts.rxdata`  consists of many ruby scripts and these now will be extracted to individual `.rb` files placed in grouped folders within the `Data/Scripts` folder.
+>  - `Scripts.rxdata` will be replaced with a loader file, this file can read the individual `.rb` files in the `Data/Scripts` Folder, Therefore making the game binary still playable! *This would not work, if the game is encrypted !*
+>- `Tilesets.rxdata` will be extracted to a readable `Tilesets.yaml` file within  `Data/YAML` folder.
 > - If at any point, unpackd is unable to perform the extraction, mentioned Backup files will be reinstated.
 
 
@@ -66,12 +78,12 @@ Options:
 - To **Combine** { ruby scripts in `Data/Scripts`  to `Scripts.rxdata `} and { `Tilesets.yaml` to `Tilesets.rxdata` }:
 
 > ```bash
-> $ unpackd.exe --combine --project "D:\Examples\MyEssentialsGame" --files scripts tilesets
+> $ essentials-unpackd --combine --project "/home/user/Examples/MyEssentialsGame" --files scripts tilesets
 > ```
 >
-> This will create 3 Folders, `Backup`, `Scripts`, and `YAML` in the *"D:\\Examples\\MyEssentialsGame<b>\\Data</b>"* folder.
+> This will create 3 Folders, `Backup`, `Scripts`, and `YAML` in the *"/home/user/Examples/MyEssentialsGame<b>/Data</b>"* folder.
 >
-> - Firstly, Backup files will be created in `Data\Backup` (`*.rxdata.backup` files)
+> - Firstly, Backup files will be created in `Data/Backup` (`*.rxdata.backup` files)
 > - Will check if the `Scripts.rxdata` is a loader file or an already data-packed file.
 >   - If in case, it is already a packed data file, this operation will skip, unless `--force` flag is passed along.
 >   - Else, ruby scripts will be reintegrated back into `Scripts.rxdata`
@@ -84,7 +96,7 @@ Options:
 - To create a general **Backup** for `Scripts.rxdata` and `Tilesets.rxdata`:
 
 > ```bash
-> $ unpackd.exe --backup --project "D:\Examples\MyEssentialsGame" --files scripts tilesets
+> $ essentials-unpackd --backup --project "/home/user/Examples/MyEssentialsGame" --files scripts tilesets
 > ```
 >
 
@@ -95,14 +107,14 @@ Options:
 - To **Revert** an already created backup of `Scripts.rxdata` and `Tilesets.rxdata`:
 
 > ```bash
-> $ unpackd.exe --revert --project "D:\Examples\MyEssentialsGame" --files scripts tilesets
+> $ essentials-unpackd --revert --project "/home/user/Examples/MyEssentialsGame" --files scripts tilesets
 > ```
 
 <br/>
 
 ### Tips and Tricks
 
-- Put `unpackd.exe` in the game directory, it is a light file and it removes the need to pass the `--project` flag
+- Put `essentials-unpackd` in the game directory, it is a light file and it removes the need to pass the `--project` flag
 
 - Currently, only `Tilesets` and `Scripts` are understandable, I am not sure about the rest of the files.
 
@@ -116,7 +128,7 @@ Options:
 
 - Using `---files` flag again and again for the same files, can be a bit effortful, create a batch file or makefile for your workflow, I have added a [makefile.template](https://raw.githubusercontent.com/ra101/Essentials-Unpackd/core/makefile.template) in the repo, as a base to add on.
 
-- Suppose your game throws an error, but you couldn't note it down. You try to run the game again, but now `Game.exe` just shows a blank screen and it exits. This happens due to caching of binary files, Now, I don't know how to delete/ignore those cache but, I know, by `--combine --force` again *(or by `--combine` then `--extract`, if you are working with loader)*, `Game.exe` assumes it is a new binary. *(Warn: This would corrupt backup)*
+- Suppose your game throws an error, but you couldn't note it down. You try to run the game again, but now the game binary just shows a blank screen and it exits. This happens due to caching of binary files, Now, I don't know how to delete/ignore those cache but, I know, by `--combine --force` again *(or by `--combine` then `--extract`, if you are working with loader)*, the game will assume it is a new binary. *(Warn: This would corrupt backup)*
 
 - In Case, you don't use a VCS (big mistake), be aware of backups! Suppose you made changes to a file, and combined it to run the game and it did not work (right now the file is bad but the backup is good). but if you make another change and combined forcefully, even if the file is good, the backup becomes bad!
 
@@ -137,7 +149,7 @@ Options:
 ## Dev-Installation
 
 ```bash
-$ git clone https://github.com/ra101/Essentials-Unpackd.git
+$ git clone https://github.com/yorukai/Essentials-Unpackd.git
 $ cd Essentials-Unpackd
 $ gem install bundler
 $ bundle install
@@ -150,6 +162,10 @@ $ bundle install
 ```bash
 $ bundle exec unpackd {--extract|--combine|-b|-r} [options]
 ```
+
+<br/>
+
+The `essentials-unpackd-git` AUR package builds this repo's `main`/`core` branch directly and installs the resulting executable as `essentials-unpackd` on your `$PATH`.
 
 <br/>
 
@@ -207,14 +223,3 @@ If you look at the map collision problem described above, the way out of this si
 * The ID numbers are used to specify the target of a map transition/warp event in event scripting
 
 This means that changing the ID number assigned to a map (and, thereby, making it possible to merge 2 maps with the same ID number) becomes _very_ nontrivial. The event scripting portion, especially, presents a difficult problem for `unpackd` to overcome. It is simple enough for `unpackd` to change the IDs of any new map created, and to change the reference to that ID number from any child maps; however, the events are where it gets sticky. The format of event calls in RPG Maker map files is not terribly well defined, and even if it was, I sincerely doubt that you want `unpackd` tearing around in the guts of your map events.
-
-
-## Psych 2.0.0 Dependency
-
-From SiCrane:
-
-> I used cygwin's ruby 1.9.3 and the Psych 2.0.0 ruby gem, which appears to be the most recent version. However, Psych 2.0.0 has some bugs that impacted the generated YAML (one major and one minor) which I monkey patched, and since I was already rewriting the Psych code, I added some functionality to make the generated YAML prettier. Long story short, this code probably won't work with any version of Psych but 2.0.0.
-
-```
-
-```
